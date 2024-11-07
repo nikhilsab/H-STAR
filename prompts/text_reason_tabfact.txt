@@ -1,0 +1,129 @@
+You are an expert on table data.
+You must use the table data and the additional evidence as the grounding evidence check the given statement.
+
+Procedure:
+- Divide the main statement into sub-tasks and answer each sub-task
+- Based on the answers, check whether the statement is supported by the table
+
+**NOTE** 
+Please be extremely careful, pause, make sure all instructions have been followed and only then output the answer
+
+Response Format:
+Begin your response with 'Output: ' and always include all of the following:
+- Decompose: Divide the main question into sub-tasks and answer each sub-task
+- Final Answer: Output as a short phrase starting by 'therefore, the statement is: ' and answer only as 'true' or 'false'
+
+Your response must always contain the final answer. Be careful and make sure that the final answer is included.
+```
+<input>
+/*
+col: player	| country
+row 0 : juli inkster | united states
+row 1 :	momoko ueda | japan
+row 2 : laura diaz | united states
+row 3 : ji young oh | south korea
+row 4 : yuri fudoh | japan
+row 5 : johanna head | england
+row 6 : stacy prammanasudh | united states
+*/
+statement: there be 2 players total from the united states, and 3 from japan
+<output>
+Using the table and as grounding evidence to check if statement is true/false
+Decompose:
+    - #1: Number of players from the united states = 3
+    - #2: Number of players from japan = 2
+# The statement expects players from united states=2; japan =3
+Final Answer: Thus, the players from united states are 3 and players from japan are 2. Therefore, the statement is : false
+
+<input>
+/*
+col : place | player | country
+row 0 : 1 | tiger woods | united states
+row 1 : 2 | sergio garcía | spain
+row 2 : t3 | jeff maggert | united states
+row 3 : t3 | phil mickelson | united states
+row 4 : t5 | robert allenby | australia
+row 5 : t5 | pádraig harrington | ireland
+row 6 : t5 | billy mayfair | united states
+row 7 : t8 | nick faldo | england
+*/
+statement: nick faldo is the only player from england.
+<output>
+Here is an additional evidence to help the answering process.
+Additional Evidence:
+/*
+col : player | country
+row 0 : nick faldo | england
+*/
+Using the table and the additional evidence as grounding evidence to check if statement is true/false
+Decompose:
+    - #1: From additional evidence, the player from england = nick faldo
+    From the table, the only player from england is nick faldo
+# The statement says nick faldo is the only player from england
+Final Answer: Therefore, the statement is: true
+
+<input>
+/*
+col : date | result | score | brazil scorers | competition
+row 0 : may 11 , 1919 | w | 6 - 0 | friedenreich (3) , neco (2) , haroldo | south american championship
+row 1 : may 18 , 1919 | w | 6 - 1 | heitor , amílcar (4), millon | south american championship
+row 2 : may 26 , 1919 | w | 5 - 2  | neco (5) | south american championship
+row 3 : may 30 , 1919 | l | 1 - 2 | jesus (1) | south american championship
+row 4 : june 2nd , 1919 | l | 0 - 2 | - | south american championship
+*/
+statement: jesus has scored in two games in south american championship.
+<output>
+Using the table as grounding evidence to check if statement is true/false
+Decompose:
+    - #1: Number of games score by jesus in south american championship = 1 (may 30,1999)
+# The statement claims jesus has scored in two games in south american championship
+Final Answer: Therefore, the statement is: true
+
+<input>
+/*
+col : round | player | position
+row 0 : 1 | ted watts | cb
+row 1 : 1 | curt marsh | ot
+row 2 : 2 | howie long	| de
+row 3 : 4 | johnny robinson | dt
+row 4 : 5 | james davis | cb
+row 5 : 9 | curt mohl | ot
+row 6 : 10 | frank hawkins | hb
+row 7 : 11 | chester willis | hb
+row 8 : 12 | phil nelson | te
+*/
+statement: the raider pick up halfback in back to back round in the 1981 nfl draft
+<output>
+Using the table as grounding evidence to check if statement is true/false
+Decompose:
+    - #1: Round 10 pick: frank hawkins, position: hb
+    - #2: Round 11 pick: chester willis, position: hb
+# The statement states the raider pick up halfback in back to back rounds in 1981 nfl draft
+Final Answer: Therefore, the statement is: true
+
+<input>
+/*
+col : away team | away team score
+row 1 : melbourne | 13.11 (89)
+row 2 : footscray | 11.13 (79)
+row 3 : fitzroy | 13.22 (100)
+row 4 : collingwood | 17.9 (111) 
+row 5 : carlton | 23.11 (149)
+row 6 : essendon | 12.15 (87)
+*/
+statement: the away team with the second highest score is fitzroy.
+<output>
+
+Here is an additional evidence to help the answering process.
+Additional Evidence:
+/*
+col : away team | second_highest
+row 0 : collingwood | 17.9 (111)
+*/
+Using the table and the additional evidence as grounding evidence to check if statement is true/false
+Decompose:
+    - #1: Score of Fitzroy = 100
+    - #2: second highest score = collingwood - 17.9 (111)
+# The statement states the away team with the second-highest score is Fitzroy
+Final Answer: Therefore, the statement is: false
+```

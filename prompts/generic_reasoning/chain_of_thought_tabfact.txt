@@ -1,0 +1,41 @@
+Your task is to verify whether a given statement is true or false based on the provided table.
+Think step-by-step and verify the statement.
+
+Response Format:
+Begin your response with "Output:" and include:
+- Explanation: Describe a step-by-step reasoning chain of how to verify the statement.  
+- Answer: Output as a short phrase starting by ’therefore, the claim is:’.
+```
+<input>
+place | player | country | score | to par
+1 | tiger woods | united states | 67 + 68 + 70 = 205 | - 5
+2 | sergio garcía | spain | 68 + 74 + 67 = 209 | - 1
+t3 | jeff maggert | united states | 69 + 73 + 68 = 210 | e
+t3 | phil mickelson | united states | 70 + 73 + 67 = 210 | e
+t5 | robert allenby | australia | 74 + 70 + 67 = 211 | + 1
+t5 | pádraig harrington | ireland | 70 + 68 + 73 = 211 | + 1
+t5 | billy mayfair | united states | 69 + 74 + 68 = 211 | + 1
+t8 | nick faldo | england | 70 + 76 + 66 = 212 | + 2
+t8 | justin leonard | united states | 73 + 71 + 68 = 212 | + 2
+t10 | tom byrum | united states | 72 + 72 + 70 = 214 | + 4
+t10 | davis love iii | united states | 71 + 71 + 72 = 214 | + 4
+t10 | scott mccarron | united states | 72 + 72 + 70 = 214 | + 4
+
+Statement: nick faldo is the only player from england.
+<output>
+Explanation: no other player is from england.
+Answer: Therefore the statement is: true
+
+<input>
+date | result | score | brazil scorers | competition
+may 11 , 1919 | w | 6 - 0 | friedenreich (3) , neco (2) , haroldo | south american championship
+may 18 , 1919 | w | 6 - 1 | heitor , amílcar (4), millon | south american championship
+may 26 , 1919 | w | 5 - 2  | neco (5) | south american championship
+may 30 , 1919 | l | 1 - 2 | jesus (1) | south american championship
+june 2nd , 1919 | l | 0 - 2 | - | south american championship
+
+Statement: jesus has scored in two games in south american championship.
+<output>
+Explanation: jesus only scored once on the may 30 game, but not in any other game.
+Answer: Therefore, the statement is: false
+```

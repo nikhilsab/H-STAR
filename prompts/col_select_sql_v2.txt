@@ -1,0 +1,116 @@
+You are given the table schema, and the table along with the corresponding statement.
+Write a simple SQLite program for selecting the required columns only, to help answer the question correctly. 
+The SQLite program need not directly answer the question.
+Assume you always have enough information when executing the SQLite. Fuzzy match data if unsure.
+
+1. Plan:  
+ - Identify critical values and ranges from the table related to the statement.
+ - Make use of your domain knowledge to find the correct approach to solve the question.
+ - Always select the column with special aggregate values like 'total'.
+2. Retrieval:
+ - Generate a simple SQL program extracting the relevant columns
+ - SQL: SELECT <COLUMNS> FROM w;
+ - Evidence: f_col([column names])
+
+Response Format:
+Begin your response with 'Output' and include:
+- Plan: Write the plan for column extraction along with a reasoning chain
+- Retrieval: Write a simple SQL query
+ Evidence: f_col([column names])
+
+Before you return the answer, review your outputs and make sure you have followed all the given instructions. Make sure to only select columns.
+```
+<input>
+CREATE TABLE Płock Governorate(
+	row_id int,
+	language text,
+	number int,
+	percentage (%) text,
+	males int,
+	females int)
+/*
+All rows of the table:
+SELECT * FROM w;
+row_id	language	number	percentage (%)	males	females
+0	polish	447685	80.86	216794	230891
+1	yiddish	51215	9.25	24538	26677
+2	german	35931	6.49	17409	18522
+7	total	553633	100	275652	277981
+*/
+columns: ['row_id', 'language', 'number', 'percentage (%)', 'males', 'females']
+Q: how many male and female german speakers are there?
+<output>
+1. Plan:
+ - We need to count the number of male and female speakers
+ - The column 'language' with the aggregate value 'total' must be included
+ - We then select the 'males', 'females', 'language' 
+2. Retrieval:
+ # SQL format: SELECT <column names> FROM w;
+ - SQL: SELECT `language`, `males`, `females` FROM w;
+   # Only output the column names from the column list
+ - Evidence: f_col([language, males, females])
+
+<input>
+CREATE TABLE Electricity in Sri Lanka(
+	row_id int,
+	filledcolumnname text,
+	2005 int,
+	2006 int,
+	2007 int,
+	2008 int,
+	2009 int,
+	2010 int,
+	2011 int,
+	2012 int)
+/*
+3 example rows:
+SELECT * FROM w LIMIT 3;
+row_id	filledcolumnname	2005	2006	2007	2008	2009	2010	2011	2012
+0	hydro power	1293	1316	1326	1357	1379	1382	1401	1584
+1	thermal	1155	1155	1155	1285	1290	1390	1690	1638
+2	other renewables	3	3	3	3	15	45	50	90
+*/
+columns: ['row_id', 'filledcolumnname', '2005', '2006', '2007', '2008', '2009', '2010', '2011', '2012']
+Q: how did the other renewables fare till 2009?
+<output>
+Output:
+1. Plan:
+ - We need to analyze the performance of 'other renewables' till 2009.
+ - The key columns of interest are 'filledcolumnname' (to identify 'other renewables') and the columns till 2009.
+ - Since there are no aggregate values, we'll select 'filledcolumnname' and columns up to 2009.
+2. Retrieval:
+   # Include columns up to 2009 along with 'filledcolumnname'
+ - SQL: SELECT `filledcolumnname`, `2005`, `2006`, `2007`, `2008`, `2009` FROM w;
+   # Only output the column names from the column list
+ - Evidence: f_col(['filledcolumnname', '2005', '2006', '2007', '2008', '2009'])
+
+<input>
+CREATE TABLE figure skating at the asian winter games(
+    row_id int,
+    rank int,
+    nation text,
+    gold int,
+    silver int,
+    bronze int,
+    total int)
+/*
+SELECT * FROM w;
+row_id	rank	nation	gold	silver	bronze	total
+0	1	china	13	9	13	35
+1	2	japan	7	10	7	24
+2 	3	uzbekistan	1	2	3	6
+6	total			24	23	26	73
+*/
+columns: ['row_id', 'nation', 'gold', 'silver', 'bronze', 'total']
+Q: were the number of gold and silver medals are equal?
+<output>
+1. Plan:
+ - We need to identify the number of gold and silver medals from each nation.
+ - The 'rank' column contains 'total' that is an aggregate value. Thus, we need 'rank' as well.
+ - We will extract the 'nation', 'gold', and 'silver' columns from the table to examine the medal counts for each nation.
+2. Retrieval:
+   # Include columns 'gold', 'silver', 'nation' and 'rank' that contains the special aggregate word.
+ - SQL: SELECT `rank`, `nation`, `gold`, `silver` FROM w;
+   # Only output the column names from the column list
+ - Evidence: f_col(['rank', 'nation', 'gold', 'silver'])
+```

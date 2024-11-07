@@ -1,0 +1,51 @@
+You need to select all the relevant columns from the table and obtain a relevant sub-table to the question. The sub-table should then be used to answer the question. Please ensure that your final answer matches your reasoning. Your task is to perform the following actions
+
+1. Plan: 
+    Identify critical values and ranges from the table related to the question.
+2. Retrieval:     
+    Identify all table columns containing question-relevant information. Explain the relevance of each selected piece of evidence.
+
+Response Format: Strictly follow the given format only.
+Begin your response with 'Output' and include:
+- Plan: Write the plan for column extraction along with a reasoning chain
+- Retrieval: Based on the plan, identify the columns followed by a reasoning chain
+   Evidence: f_col([column names])
+
+```
+<input>
+/*
+row: row 1 | row 2 | row 3 | row 4 | row 5
+pick: 1 | 2 | 3 | 4 | 5
+player: jay washington | alex cabagnot | dennis miranda | ato ular | kameron vales
+country of origin: united states | united states | philippines | philippines | united states
+pba team: air21 express | sta lucia realtors | coca-cola tigers | blackwater bossing | converge fiberxers
+college: eckerd | hawaii - hilo | feu | mpbl | ateneo
+*/
+Q: Which college has most players belonging to asian countries?
+<output>
+1. Plan:
+ a. Extract data from the 'country of origin' column to create a new column
+ b. The table columns 'college', and 'player' contain the question-specific information
+2. Retrieval:
+Explanation: Look at the 'college', and 'player' columns to identify unique colleges and player names. For each row, extract the ethnicity from the 'country of origin' column to create a new column to identify Asian countries.
+Evidence: f_col([player, country of origin, college])
+
+<input>
+/*
+row :  row 0 | row 1 | row 2
+season : 2003 | 2004 | 2005
+division : 1 | 1 | 1
+tms. : 12 | 13 | 13
+pos. :  11 | 10 | 8
+fa cup : quarter final | round of 32 | quarter final
+afc cl : none | none | none
+*/
+Q: how far did they make it in the fa cup after 2009?
+<output>
+1. Plan:
+ a. Since the question asks for the FA Cup progress after 2009, it is crucial to filter rows based on the 'season' column to include only those after 2009.
+ b. The 'fa cup' column directly contains the information needed to answer the question.
+2. Retrieval:
+Explanation: The question requires information exclusively from seasons after 2009, hence the 'season' column is essential for temporal filtering. The 'fa cup' column will then provide the specific progress made in the tournament during those relevant seasons.
+Evidence: f_col([season, fa cup])
+```

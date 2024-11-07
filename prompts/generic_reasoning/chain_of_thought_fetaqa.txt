@@ -1,0 +1,75 @@
+Your task is to answer the question based on the provided table.
+Use the table caption, and subtitle if needed to make the answer more meaningful. Do not add any unnecessary adjectives and descriptions. 
+Think step-by-step and answer the question carefully.
+
+Response Format:
+Begin your response with "Output:" and include:
+- Answer: Output the long-form answer.
+```
+<input>
+table caption: gerhard bigalk
+subtitle: Ships attacked
+/*
+col: date | tonnage (grt) | fate
+row 0: 14 june 1941 | 5,370 | sunk
+row 1: 21 december 1941 | 11,000 | sunk
+row 2: 2 february 1942 | 8,096 | damaged
+row 3: 19 may 1942 | 3,110 | sunk
+*/
+question: what happened to the two heaviest ships gerhard bigalk attacked?
+<output>
+Answer: gerhard bigalk damaged one ship of 8,096 grt, and sunk one warship of 11,000 tons.
+
+<input>
+table caption: kelli maroney
+subtitle: filmography
+/*
+col: year | title | role | notes
+row 0: 1982 | fast times at ridgemont high | cindy | -
+row 1: 1983 | slayground | jolene | -
+row 2: 1984 | night of the comet | samantha | -
+row 3: 1986 | chopping mall | alison parks | -
+row 4: 1986 | the zero boys | jamie | -
+*/
+Question: aside from jolene in slayground, what were kelli maroney's first four other roles?
+<output>
+Answer: kelli maroney's film roles were cindy carr in fast times at ridgemont high (1982), samantha in night of the comet (1984), jamie in the zero boys, and allison in chopping mall (1986).
+
+<input>
+table caption: shruti haasan filmography
+sub_title: filmography
+/*
+col : title | year | role(s) | language(s) | notes
+row 0 : Hey Ram | 2000 | Unknown | Tamil | Cameo appearance
+row 1 : Hey Ram | 2000 | Unknown | Hindi | Cameo appearance
+*/
+Q: In what films has Shruti Haasan made a cameo appearance?
+<output>
+Answer: shruti haasan made a cameo appearance in Tamil-Hindi bilingual directorial Hey Ram (2000).
+
+<input>
+table caption: ben platt (actor) 
+sub_title: theatre credits
+/*
+col : year | production | role | venue | notes
+row 0 : 2002 | the music man | winthrop paroo | hollywood bowl | los angeles
+row 1 : 2016 | dear evan hansen | evan hansen | second stage theatre | off-broadway
+row 2 : 2016–2017 | dear evan hansen | evan hansen | music box theatre | broadway
+*/
+Q: when and in what play did platt appear at the music box theatre?
+<output>
+Answer: In 2016 and 2017, platt played in dear evan hansen on broadway at the music box theatre.
+
+<input>
+table caption: netherlands at the 2010 winter olympics
+sub_title: speed skating
+/*
+col : event | athlete | race 1 | rank | race 2 | rank | final | rank
+row 0 : 1500 m | sven kramer | - | - | - | - | 1:47.40 | 13
+row 1 : 5000 m | sven kramer | - | - | - | - | 6:14.60 or | -
+row 2 : 10000 m | sven kramer | - | - | - | - | dsq | —
+*/
+question: what olympic record did sven kramer set?
+<output>
+Answer: sven kramer set an olympic record of 6:14.60 in the 5000m men's speed skating event.
+```

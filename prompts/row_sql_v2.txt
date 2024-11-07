@@ -1,0 +1,129 @@
+You are given the table schema, and the table along with the corresponding question.
+Your task is only to write an SQLite program to create a subtable to help answer the question. You must not answer the question but you must only find the relevant subtable.
+Write a simple but correct SQLite program.
+
+Procedure:
+  1. Decompose: Find all the subtasks from the main question.
+  2. Retrieval: Generate an SQLite program for each subtask and then combine using only an 'OR' clause.
+
+Response Format:
+Begin your response with 'Output: ' and include all the following components:
+ - Decompose: Divide the question into smaller manageable sub-tasks; one task for each condition
+ - Retrieval: A basic SQLite program for each condition followed by a combined SQLite
+
+**NOTE**
+- Use the column names as it is as given in the column list.
+- Use 'OR' to combine conditions.
+- The SQLite program must be only of the format: SELECT <column names> FROM w WHERE <conditions>;
+
+Be very careful, think and ensure that all the above instructions are followed and only then return your response.
+```
+<input>
+CREATE TABLE British_Records_in_Athletics(
+	row_id int,
+	event text,
+	place text);
+
+/*
+3 example rows:
+SELECT * FROM British_Records_in_Athletics LIMIT 3;
+row_id	event	place
+0	5 km	søfteland , norway
+1	5 miles	york , united kingdom
+2	10 km	burrator , united kingdom
+*/
+columns: ['row_id', 'event', 'place']
+Q: how many events took place within the united kingdom?
+<output>
+1. Decompose:
+ - Part 1: Find all instances of events that took place within the united kingdom
+ # Do not use COUNT() clause
+ # The SQLite program must be only of the format: SELECT <column names> FROM w WHERE <conditions>; 
+   SELECT event, place FROM w WHERE place LIKE '%united kingdom%';
+2. Retrieval:
+   SQL: SELECT event, place FROM w WHERE place LIKE '%united kingdom%';
+
+<input>
+CREATE TABLE Fabrice Santoro(
+	row_id int,
+	name text,
+	career\nwin-loss text)
+/*
+3 example rows:
+SELECT * FROM w LIMIT 3;
+row_id	name  career\nwin-loss
+0	australian open	22–18
+1	french open	17–20
+2	wimbledon	11–14
+*/
+columns : ['row_id', 'name', 'career\nwin-loss']
+Q: did he win more at the australian open or indian wells?
+<output>
+1. Decompose:
+ - Part 1: Identify the wins at australian open
+ # The SQLite program must be only of the format: SELECT <column names> FROM w WHERE <conditions>;
+   SELECT `name`, `career\nwin-loss` FROM w WHERE name = 'australian open' OR "name" = 'indian wells';
+ - Part 2: Identify the wins at indian wells
+ # The SQLite program must be only of the format: SELECT <column names> FROM w WHERE <conditions>;
+   SELECT `name`, `career\nwin-loss` FROM w WHERE name = 'indian wells';
+2. Retrieval:
+ # Always use 'OR' to combine the conditions from #1, #2
+   SQL: SELECT `name`, `career\nwin-loss` FROM w WHERE name = 'australian open' OR name = 'indian wells';
+
+<input>
+CREATE TABLE Playa_de_Oro_International_Airport(
+row_id int,
+city text,
+passengers text)
+/*
+3 example rows:
+SELECT * FROM Playa_de_Oro_International_Airport LIMIT 3;
+row_id  city  passengers
+0 united states, los angeles 14,749
+1 united states, houston 5,465
+2 canada, calgary 3,761
+*/
+Q: how many more passengers flew to los angeles than to saskatoon from manzanillo airport in 2013?
+<output>
+Take a deep breath and work step by step
+1. Decompose:
+ - Part 1: Identify the number of passengers flying to Los Angeles
+ # The SQLite program must be only of the format: SELECT <column names> FROM w WHERE <conditions>;    
+   SELECT passengers FROM w WHERE city LIKE '%los angeles%';
+ - Part 2: Identify the number of passengers flying to Saskatoon
+ # The SQLite program must be only of the format: SELECT <column names> FROM w WHERE <conditions>;
+   SELECT passengers FROM w WHERE city LIKE '%saskatoon%';
+2. Retrieval:
+ # Use 'OR' to combine the conditions from #1, #2
+ # The SQLite program must be only of the format: SELECT <column names> FROM w WHERE <conditions>;
+   SQL: SELECT city, passengers FROM w WHERE city LIKE '%los angeles%' OR city LIKE '%saskatoon%';
+
+<input>
+CREATE TABLE Electricity in Sri Lanka(
+	row_id int,
+	filledcolumnname text,
+	2010 int,
+	2012 int)
+/*
+3 example rows:
+SELECT * FROM w LIMIT 3;
+row_id	filledcolumnname	2010	2012
+0	hydro power		1382	1584
+1	thermal	1155	1390	1638
+2	other renewables	45	90
+*/
+columns: ['row_id', 'filledcolumnname', '2010', '2012']
+Q: did the hydro power increase or decrease from 2010 to 2012?
+<output>
+Take a deep breath and work step by step
+1. Decompose:
+ - Part 1: Retrieve the value of hydro power in 2010
+ # The SQLite program must be only of the format: SELECT <column names> FROM <table> WHERE <conditions>;
+   SELECT 2010 FROM w WHERE filledcolumnname = 'hydro power';
+ - Part 2: Retrieve the value of hydro power in 2012
+ # The SQLite program must be only of the format: SELECT <column names> FROM <table> WHERE <conditions>;
+   SELECT 2012 FROM w WHERE filledcolumnname = 'hydro power';
+2. Retrieval:
+ # Always use 'OR' to combine the conditions from #1, #2
+   SQL: SELECT filledcolumnname, 2010, 2012 FROM w WHERE filledcolumnname = 'hydro power';
+```

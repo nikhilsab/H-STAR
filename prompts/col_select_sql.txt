@@ -1,0 +1,138 @@
+You are given the table schema, and the table along with the corresponding statement.
+Write a simple SQLite program for selecting the required columns only, to help answer the question correctly. 
+The SQLite program need not directly answer the question.
+Assume you always have enough information when executing the SQLite. Fuzzy match data if unsure.
+
+1. Plan:  
+ - Identify critical values and ranges from the table related to the statement.
+ - Make use of your domain knowledge to find the correct approach to solve the question.
+ - Always select the column with special aggregate values like 'total'.
+2. Retrieval:
+ - Generate a simple SQL program extracting the relevant columns
+ - SQL: SELECT <COLUMNS> FROM w;
+ - Evidence: f_col([column names])
+
+Response Format:
+Begin your response with 'Output' and include:
+- Plan: Write the plan for column extraction along with a reasoning chain
+- Retrieval: Write a simple SQL query
+ Evidence: f_col([column names])
+
+Before you return the answer, review your outputs and make sure you have followed all the given instructions.
+```
+<input>
+CREATE TABLE Płock Governorate(
+	row_id int,
+	language text,
+	number int,
+	percentage (%) text,
+	males int,
+	females int)
+/*
+SELECT * FROM w;
+row_id	language	number	percentage (%)	males	females
+0	polish	447685	80.86	216794	230891
+1	yiddish	51215	9.25	24538	26677
+2	german	35931	6.49	17409	18522
+7	total	553633	100	275652	277981
+*/
+columns: ['row_id', 'language', 'number', 'percentage (%)', 'males', 'females']
+statement: male speakers exceed female speakers by 1000
+<output>
+1. Plan:
+ - We need to identify the number of male and female speakers
+ - The column 'language' with the aggregate value 'total' must be included
+ - We then select the 'males', 'females', 'language' 
+2. Retrieval:
+ - SQL: SELECT `language`, `males`, `females` FROM w;
+   # Only output the column names from the column list
+ - Evidence: f_col([language, males, females])
+
+<input>
+CREATE TABLE 2005 pba draft(
+	row_id int,
+	pick int,
+	player text,
+	country of origin text,
+	pba team text,
+	college text)
+/*
+3 example rows:
+SELECT * FROM w LIMIT 3;
+row_id	pick	player	country of origin	pba team	college
+0	1	jay washington	united states	air21 express	eckerd
+1	2	alex cabagnot	united states	sta lucia realtors	hawaii - hilo
+2	3	dennis miranda	philippines	coca - cola tigers	feu
+*/
+columns: ['row_id', 'pick', 'player', 'country of origin', 'pba team', 'college']
+statement: miranda belongs to a european country
+<output>
+1. Plan:
+ - The critical values to identify are the players' names from and their countries of origin.
+ - We can use the 'player' column to identify the players 
+ - There are no columns containing aggregate values to be selected
+ - We will use domain knowledge to identify European countries from the 'country of origin' column.
+2. Retrieval:
+ - SQL: SELECT 'player','country of origin' FROM w;
+ - Evidence: f_col([player, country of origin])
+
+<input>
+CREATE TABLE Highest mountain peaks of California(
+	row_id int,
+	rank int,
+	mountain peak text,
+	mountain range text,
+	elevation text,
+	prominence text,
+	isolation text,
+	location text)
+/*
+3 example rows:
+SELECT * FROM w LIMIT 3;
+row_id	rank	mountain peak	mountain range	elevation	prominence	isolation	location
+0	1	mount whitney	sierra nevada	14505 ft; 4421 m	10080 ft; 3072 m	1646 mi; 2649 km	36°34′43″n 118°17′31″w / 36.5786°n 118.292°w
+1	2	mount williamson	sierra nevada	14379 ft; 4383 m	1677 ft; 511 m	5.4 mi; 8.7 km	36°39′21″n 118°18′40″w / 36.6559°n 118.3111°w
+2	3	white mountain peak	white mountains	14252 ft; 4344 m	7196 ft; 2193 m	67 mi; 109 km	37°38′3″n 118°15′21″w / 37.6341°n 118.2557°w
+*/
+columns: ['row_id', 'rank', 'mountain peak', 'mountain range', 'elevation', 'prominence', 'isolation', 'location']
+statement: mt whitney and mt gilbert both have a prominence greater than 10,000 ft
+<output>
+1. Plan:
+ - The critical values to identify are the mountain names and their prominence.
+ - There are no columns with aggregate values 
+ - We will filter the table based on 'mountain peak' and 'prominence' for a prominence greater than 10,000 ft and then identify rows containing 'Mount Whitney' and 'Mount Gilbert' within the filtered results.
+2. Retrieval:
+ - SQL: SQL: SELECT 'mountain peak', 'prominence' FROM w;
+   # Only output the column names from the column list
+ - Evidence: f_col([mountain peak, prominence])
+
+<input>
+CREATE TABLE figure skating at the asian winter games(
+    row_id int,
+    rank int,
+    nation text,
+    gold int,
+    silver int,
+    bronze int,
+    total int)
+/*
+SELECT * FROM w;
+row_id	rank	nation	gold	silver	bronze	total
+0	1	china	13	9	13	35
+1	2	japan	7	10	7	24
+2 	3	uzbekistan	1	2	3	6
+3	6	total			24	23	26	73
+*/
+columns: ['row_id', 'nation', 'gold', 'silver', 'bronze', 'total']
+statement: the number of gold and silver medals are equal
+<output>
+1. Plan:
+ - To verify the statement, we need to identify the number of gold and silver medals from each nation.
+ - The 'rank' column contains 'total' that is an aggregate value. Thus, we need 'rank' as well.
+ - We will extract the 'nation', 'gold', and 'silver' columns from the table to examine the medal counts for each nation.
+2. Retrieval:
+   # Include columns 'gold', 'silver', 'nation' and 'rank' that contains the special aggregate word.
+ - SQL: SELECT `rank`, `nation`, `gold`, `silver` FROM w;
+   # Only output the column names from the column list
+ - Evidence: f_col(['rank', 'nation', 'gold', 'silver'])
+```

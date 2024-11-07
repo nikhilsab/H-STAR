@@ -1,0 +1,116 @@
+You are an instruction following bot expert in text understanding and SQLite. You must carefully understand the table and the corresponding question.
+Your task is to determine whether you need an SQLite program to solve the question. Always remember, that most questions do not need an SQLite program, and you must simply return 'None'.
+
+1. Nature of the Question:
+  Evaluate if the question has any calculations/counting/column selection involving extensive tables.
+
+2. Final Output:
+  You must write an SQLite program
+  A. Based on your analysis, if the solution is 'SQL', then you must write an SQLite program to extract a subtable to answer the question. The SQLite does not need to directly answer the question. Generate an SQLite that is less complex but ensure that it is correct. Try to use fuzzy-match for values if you are not sure about the values. Generate a step-by-step SQLite program to answer the question.
+  B. If the solution is not SQL, then simply return 'None'
+
+Response Format:
+Begin your response with 'Output: ' and always include:
+ - Nature of the Question: Evaluation based on the nature of the question.
+ - Final Output: 'None' for non-SQL solution and the SQLite program for an SQL-based solution.
+```
+<input>
+CREATE TABLE w (
+   row_id int,
+   rank int,
+   lane int,
+   player text)
+/*
+All rows of the table:
+SELECT * FROM w;
+row_id   rank  lane  player
+0     5  olga tereshkova (kaz)
+1     6  manjeet kaur (ind)
+2     3  asami tanno (jpn)
+*/
+columns: ['row_id','rank','lane','player']
+statement: the number of athletes from japan and india are 3 and 2 respectively
+<output>
+1. Nature of the Question:
+  - This question involves extracting and transforming data (country from player name) and then grouping by the extracted data (country).
+  - This is a task suited for SQL.
+2. Final Output:
+  - Step 1: Extract the country based on the assumption of consistent country placement within parenthesis.
+    SELECT SUBSTR(`player`, INSTR(`player`, '(') + 1, INSTR(`player`, ')') - INSTR(`player`, '(') - 1) AS country FROM w;
+  - Step 2: Group by the extracted country and count the occurrences.
+    SELECT SUBSTR(`player`, INSTR(`player`, '(') + 1, INSTR(`player`, ')') - INSTR(`player`, '(') - 1) AS country, COUNT(*) AS total_count FROM w GROUP BY SUBSTR(`player`, INSTR(`player`, '(') + 1, INSTR(`player`, ')') - INSTR(`player`, '(') - 1);
+SQL: SELECT SUBSTR(`player`, INSTR(`player`, '(') + 1, INSTR(`player`, ')') - INSTR(`player`, '(') - 1) AS country, COUNT(*) AS total_count FROM w GROUP BY SUBSTR(`player`, INSTR(`player`, '(') + 1, INSTR(`player`, ')') - INSTR(`player`, '(') - 1);
+
+<input>
+CREATE TABLE espn sunday night football results (1987 - 2005)(
+	row_id int,
+	date text,
+	visiting team text)
+/*
+All rows of the table:
+SELECT * FROM w;
+row_id	date	visiting_team	
+0	december 25	minnesota vikings
+1	december 31	new york giants	
+2	january 1 (2006)	st louis rams
+*/
+columns: ['row_id', 'date', 'visiting team']
+statement: the visiting team be the new york giant on new year's eve, and st louis ram on new year's day
+<output>
+1. Nature of the Question: 
+  - The question involves filtering data based on specific dates and teams.
+  - This can be achieved using simple retrieval and hence SQL is not needed
+2. Final Output: Based on the reasoning above, None.
+
+<input>
+CREATE TABLE 2008 women 's british open(
+	row_id int,
+	player text,
+	player country text)
+/*
+3 example rows:
+SELECT * FROM w LIMIT 3;
+row_id	player	player_country	
+0	juli inkster	united states
+1	momoko ueda	japan
+2	laura diaz	united states
+*/
+columns: ['row_id', 'player', 'player country']
+statement: there be 3 player total from the united states and 5 players from japan
+<output>
+1. Nature of the Question: 
+   - This question involves counting the number of players from a specific countries.
+   - Counting data points within a table is a task suited for SQL.
+2. Final Output: Since the task is SQL,
+   - Step 1: Group players by country and count the occurrences
+     SELECT `player country`, COUNT(*) AS total_players FROM w GROUP BY `player country`;
+SQL: SELECT `player country`, COUNT(*) AS total_players_per_country FROM w GROUP BY `player country`;
+
+<input>
+CREATE TABLE electoral district of lachlan(
+	row_id int,
+	member_name text,
+	member_term text)
+/*
+3 example rows:
+SELECT * FROM w LIMIT 3;
+row_id	member_name	member_term
+0	john ryan	1859–1864
+1	james martin	1864–1869
+2	james watson	1869–1880
+*/
+columns: ['row_id', 'member name', 'member term']
+statement: the longest term was served by john ryan
+<output>
+1. Nature of the Question:
+  - This question involves identifying the member who served the longest term. It requires calculations determining the maximum duration served by any member, which can be achieved through SQL.
+  - This is a task suited for SQL.
+2. Final Output: Since the task is SQL,
+  - Step 1: Extract the start and end years from the 'member term' column
+    SELECT `member name`, `member term`, CAST(SUBSTR(`member term`, 1, 4) AS INTEGER) AS start_year, CAST(SUBSTR(`member term`, 6, 4) AS INTEGER) AS end_year FROM w;
+  - Step 2: Calculate the duration of each term
+    SELECT `member name`, `member term`, (CAST(SUBSTR(`member term`, 6, 4) AS INTEGER) - CAST(SUBSTR(`member term`, 1, 4) AS INTEGER)) AS duration FROM w;
+  - Step 3: Identify the member with the longest term
+    SELECT `member name`, `member term`, MAX(CAST(SUBSTR(`member term`, 6, 4) AS INTEGER) - CAST(SUBSTR(`member term`, 1, 4) AS INTEGER)) AS longest_served FROM w;
+SQL: SELECT `member name`, `member term`, MAX(CAST(SUBSTR(`member term`, 6, 4) AS INTEGER) - CAST(SUBSTR(`member term`, 1, 4) AS INTEGER)) AS longest_served FROM w;
+```

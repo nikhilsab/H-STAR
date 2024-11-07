@@ -1,0 +1,120 @@
+You are given the table schema, and the table along with the corresponding statement.
+Your task is to write an SQLite program to create a subtable to help answer the question correctly.
+The SQLite program need not answer the question.
+Try to use fuzzy-match for values if you are not sure about the values.
+
+Process:
+1. Decompose: Find all the subtasks from the main question.
+2. Retrieval: Generate an SQLite program for each subtask and then combine using an 'OR' statement.
+
+Response Format:
+Your response must strictly have the following components:
+ - Decompose: Divide the question into smaller manageable sub-tasks; one task for each condition
+ - Retrieval: A basic SQLite program for each condition followed by a combined SQLite
+**NOTE**
+- Strictly use the 'OR' statement to when you combine the multiple conditions in the final SQLite program.
+```
+<input>
+CREATE TABLE 1943 vfl season(
+	row_id int,
+	away team text,
+	away team score text)
+/*
+3 example rows:
+SELECT * FROM w LIMIT 3;
+row_id	away team	away team score
+0	south melbourne	6.14 (50)
+1	melbourne	13.9 (87)
+2	fitzroy	9.13 (67)
+*/
+columns: ['row_id', 'away team', 'away team score']
+statement: the away team with the highest score is fitzroy.
+<output>
+Take a deep breath and work step by step
+1. Decompose: 
+  - Part 1: Find away team with the highest score
+	Response 1: SELECT * FROM w WHERE `away team score` = (SELECT MAX(`away team score`) FROM w);
+  - Part 2: Find the instance where away team is fitzroy
+    Response 2: SELECT * FROM w WHERE `away team` = 'fitzroy';
+2. Retrieval:
+   # Use 'OR' to combine the conditions from #1, #2
+   SQL: SELECT * FROM w WHERE `away team score` = (SELECT MAX(`away team score`) FROM w) OR `away team` = 'fitzroy';
+
+<input>
+CREATE TABLE 2005 pba draft(
+	row_id int,
+	pick int,
+	player text,
+	country of origin text)
+/*
+3 example rows:
+SELECT * FROM w LIMIT 3;
+row_id	pick	player	country of origin
+1	2	alex cabagnot	united states
+2	3	dennis miranda	philippines
+*/
+statement: the player after alex cabagnot is from philippines
+<output>
+Take a deep breath and think step by step
+1. Decompose:
+ - Part 1: Identify the row for alex cabagnot
+   Response 1: SELECT * FROM w WHERE player = 'alex cabagnot';
+ - Part 2: Identify the player after alex cabagnot
+   Response 2: SELECT * FROM w WHERE pick = (SELECT pick FROM w WHERE player LIKE '%alex cabagnot%') + 1;
+ - Part 2: Check if the player after alex cabagnot is from the Philippines
+   Response 3: SELECT * FROM w WHERE country of origin = 'philippines';
+2. Retrieval:
+   # Using 'OR' to combine the conditions from #1, #2, #3
+   SQL: SELECT * FROM w WHERE player = 'alex cabagnot' OR `pick` = (SELECT pick FROM w WHERE player LIKE 'alex cabagnot') + 1 OR `country of origin` = 'philippines';
+
+<input>
+CREATE TABLE 1976 world junior figure skating championships(
+	row_id int,
+	rank int,
+	nation text)
+/*
+3 example rows:
+SELECT * FROM w LIMIT 3;
+row_id	rank	nation
+0   1   canada
+1	  2   united states
+2	  3 	australia
+*/
+columns: ['row_id', 'rank', 'nation']
+statement: france is in 3 of the top 7 positions
+<output>
+Take a deep breath and work step by step
+1. Decompose:
+ - Part 1: Find all the ranks with france
+   Response 1: SELECT * FROM w WHERE `nation` = 'france';
+ - Part 2: Find all ranks within top 7
+   Response 2: SELECT * FROM w WHERE `rank` <= 7;
+2. Retrieval:
+   # Using 'OR' to combine the conditions #1, #2
+   SQL: SELECT * FROM w WHERE `nation` = 'france' OR `rank` <= 7;
+
+<input>
+CREATE TABLE jeev milkha singh(
+	row_id int,
+	tournament text,
+	events int,
+	cuts made int)
+/*
+3 example rows:
+SELECT * FROM w LIMIT 3;
+row_id	tournament  events	cuts made
+0	masters tournament	3	2
+1	us open	4	3
+2	the open championship	2	1
+*/
+columns: ['row_id', 'tournament', 'events', 'cuts made']
+statement: the number of cut made exceeds the number of event by 2
+<output>
+Take a deep breath and think step by step
+1. Decompose:
+   - Part 1: Since we need to compare with all the rows, retrieve the entire table.
+     Response 1: SELECT * FROM w;
+2. Retrieval:
+   # Use 'OR' to combine the condition from #1
+   SQL: SELECT * FROM w;
+```

@@ -1,0 +1,4 @@
+Understand the provided table and verify the statement.
+If you think the statement is true, only output "true". 
+If you think the statement is not true, only output "false"
+```

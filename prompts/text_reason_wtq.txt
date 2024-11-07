@@ -1,0 +1,111 @@
+You are an expert on table data.
+You must use the table data and the additional evidence to answer the given question.
+
+Procedure:
+- Divide the main statement into sub-tasks and answer each sub-task
+- Based on the answers, check whether the statement is supported by the table
+
+**NOTE** 
+Please be extremely careful, pause, make sure all instructions have been followed and only then output the answer
+
+Response Format:
+Begin your response with 'Output: ' and always include the following:
+- Decompose: Divide the main question into sub-tasks and answer each sub-task
+- Final Answer: Strictly output as a short phrase starting by `therefore, the answer is: "AnswerName1", "AnswerName2"...` form, no other form
+
+- Read the question carefully, understand, and return what the question asks.
+- Be careful, make sure you have followed all instructions and only then return the output.
+```
+<input>
+table caption: List of spans
+/*
+col : tramway | year of inauguration
+row 0 : 3s aerial tramway | 2004
+row 1 : sandia peak tramway	| 1966
+*/
+columns: ['tramway', 'year of inauguration']
+Q: was the sandia peak tramway innagurate before or after the 3s aerial tramway?
+<output>
+Use the table to answer the question.
+1. Decompose:
+    - #1: inauguration year of sandia peak tramway = 1966
+    - #2: inauguration year of 3s aerial tramway = 2004
+    - #3: #1 is before #2
+2. Final Answer: Therefore, the answer is: "before"
+
+<input>
+/*
+col : rank | cyclist | team
+row 0 : alejandro valverde (esp) | caisse d'epargne
+row 1 : alexandr kolobnev (rus) | team csc saxo bank
+row 2 : davide rebellin (ita) | gerolsteiner
+row 3 : paolo bettini (ita) | quick step
+row 4 : franco pellizotti (ita) | liquigas
+row 5 : denis menchov (rus) | rabobank
+row 6 : samuel sánchez (esp) | euskaltel-euskadi
+row 7 : stéphane goubert (fra) | ag2r-la mondiale
+row 8 : haimar zubeldia (esp) | euskaltel-euskadi
+row 9 : david moncoutié (fra) | cofidis
+*/
+columns: ['rank', 'cyclist', 'team']
+Q: which country had the most cyclists finish within the top 10?
+<output>
+
+Here is an additional evidence to help the answering process.
+Additional Evidence:
+/*
+col : country | total_cyclists_per_country
+row 0 : ita | 3
+*/
+Using the table and the additional evidence to answer the question
+1. Decompose:
+    - #1: Number of cyclists from Italy in the top 10 = 3
+2. Final Answer: Therefore, the answer is: "Italy"
+
+<input>
+table caption: Matthew Morrison
+/*
+col : year | title
+row 0 :	2007 | music and lyrics
+row 1 :	2007 | dan in real life
+row 2 :	2007 | i think i love my wife
+*/
+columns: ['year', 'title']
+Q: what movies other than 'music and lyrics' was morrison involved with in 2007?
+<output>
+1. Decompose:
+    - #1: Movies Matthew Morrison was involved with in 2007 apart from 'music and lyrics':
+        - dan in real life
+        - i think i love my wife
+2. Final Answer: Therefore, the answer is: "dan in real life", "i think i love my wife"
+
+<input>
+table caption: 2007 New Orleans Saints season
+/*
+col : game site	| result/score
+row 0 : rca dome | l 41 – 10
+row 1 :	raymond james stadium | l 31 – 14
+row 2 :	louisiana superdome | l 31 – 14
+row 4 :	louisiana superdome	| l 16 – 13
+row 9 :	louisiana superdome	| l 37 – 29
+row 10 : reliant stadium | l 23 – 10
+row 12 : louisiana superdome | l 27 – 23
+row 15 : louisiana superdome | l 38–23
+row 16 : soldier field | l 33–25
+*/
+columns: ['game site', 'result/score']
+Q: what number of games were lost at home?
+<output>
+
+Here is an additional evidence to help the answering process.
+Additional Evidence:
+/*
+col : games_lost_at_home
+row 0 : 5
+*/
+Using the table and the additional evidence to answer the question
+1. Decompose:
+    - #1: From the additional evidence, number of games lost at home = 5
+          From the table, counting the occurrences of "louisiana superdome" in the "game site" and 'result/score' for loss column = 5
+2. Final Answer: Therefore, the answer is: "5"
+```

@@ -1,0 +1,64 @@
+Task Description:
+You are provided an initial response containing rows along a table and a question. Your task is to give feedback about the initial response and find the omitted rows if any. 
+
+Procedure:
+1. Assessment:
+    - Assess the question
+2. Feedback: Based on the question, provide the feedback.
+    a. Calculation/comparison-based question:
+       - Check if the question-relevant rows are limited or if they consist of the entire table
+    b. Order/temporal-based question:
+      - Check if the response includes the row containing the mentioned entity
+      - Check if the response contains rows satisfying the relative position mentioned in the question
+    c. Entity-specific question:
+      - Check if any row about the question-relevant entity has been omitted
+Add rows to the response if not present
+Rows: f_row([rows])
+
+Response Format:
+Begin your response with ‘Output’ and include the following:
+ - Assessment: Assess the question and the response
+ - Feedback: Provide a step-by step feedback on the suggested answers
+   Rows: f_row([rows])
+
+Be very careful in your output and ensure that you follow all the instructions given above.
+```
+<input>
+/*
+col : Rank | Athlete
+row 0 : 1 | Manjeet Kaur
+row 1 : 2 | Olga Tereshkova
+row 2 : 3 | Pinki Pramanik
+row 3 : 4 | Tang Xiaoyin
+row 4 : 5 | Marina Maslyonko
+*/
+Q: tell me who finished immediately after manjeet kaur
+Initial Response: ['row 1']
+<output>
+1. Assessment:
+  - The question is temporal. Thus, we need the row corresponding to Manjeet Kaur and the row after it.
+2. Feedback:
+  - Is the row for Manjeet Kaur included in the initial response? A: No; add(row 0)
+  - What is the row after Manjeet Kaur (row 0)? A: row 1; add(row 1)
+  - Is the row after Manjeet Kaur included in the initial response? A: Yes
+Rows: f_row([row 0, row 1])
+
+<input>
+/*
+col : away team | away team score
+row 0 : melbourne | 13.11 (89)
+row 1 : footscray | 11.13 (79)
+row 2 : fitzroy | 13.22 (100)
+row 3 : collingwood | 17.9 (111) 
+row 4 : carlton | 23.11 (149) 
+row 5 : essendon | 12.15 (87) 
+*/
+Q: what is the away team with the highest score?
+Initial Response: (['row 0', 'row 1',..,'row 5'])
+<output>
+1. Assessment:
+  - The question is calculation-based. The question compares with all the rows of the table.
+2. Feedback:
+  - Are all the rows included in the response? A.No; add(*)
+Rows: f_row([*])
+```

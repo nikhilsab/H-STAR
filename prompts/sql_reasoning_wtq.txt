@@ -1,0 +1,103 @@
+Your task is to determine whether you need an SQLite program to solve the question. 
+You must understand the question and identify if it involves any calculations. The final SQLite program must be simple.
+
+Final Output:
+If the question has any mathematical component, then you must write an SQLite program to extract a subtable to answer the question. Otherwise, simply return 'None'
+
+Response Format:
+Begin your response with 'Output: ' and always include the following:
+   - Final Output: A step-by-step reasoning followed by 'None' if SQL is not required otherwise the SQLite program as the solution.
+
+Exclude aggregate values like 'total', 'average', etc from your SQLite programs.
+Follow all instructions before returning the answer. Be careful. Think step by step.
+```
+<input>
+CREATE TABLE asian games (
+   row_id int,
+   rank int,
+   lane int,
+   player text)
+/*
+All rows of the table:
+SELECT * FROM w;
+row_id   rank  lane  player
+0     5  olga tereshkova (kaz)
+1     6  manjeet kaur (ind)
+2     3  asami tanno (jpn)
+*/
+columns: ['row_id','rank','lane','player']
+Q: which country has the highest number of athletes?
+Final Output:
+We need to count the occurrences of athletes from each country. Since this involves mathematical operations, we will use SQLite to solve this.
+ - Step 1: Extract the country from the player column, assuming it is enclosed within parentheses.
+   SELECT SUBSTR(`player`, INSTR(`player`, '(') + 1, INSTR(`player`, ')') - INSTR(`player`, '(') - 1) AS country FROM w;
+ - Step 2: Count the occurrences of athletes from each country and find the country with the highest count.
+   SELECT SUBSTR(`player`, INSTR(`player`, '(') + 1, INSTR(`player`, ')') - INSTR(`player`, '(') - 1) AS country, COUNT(*) AS num_athletes FROM w GROUP BY country ORDER BY num_athletes DESC LIMIT 1;
+SQL: SELECT SUBSTR(`player`, INSTR(`player`, '(') + 1, INSTR(`player`, ')') - INSTR(`player`, '(') - 1) AS country, COUNT(*) AS num_athletes FROM w GROUP BY country ORDER BY num_athletes DESC LIMIT 1;
+
+<input>
+CREATE TABLE 2008 women 's british open(
+	row_id int,
+	player text,
+	player country text)
+/*
+All example rows:
+SELECT * FROM w;
+row_id	player	player_country	
+0	juli inkster	united states
+1	momoko ueda	japan
+2	laura diaz	united states
+*/
+columns: ['row_id', 'player', 'player country']
+statement: how many players are from united states and japan in total?
+<output>
+Think step-by-step.
+Final Output:
+This question involves counting the number of players from specific countries (United States and Japan).
+  - Step 1: Filter the rows where the player country is either 'united states' or 'japan' and count the results.
+    SELECT COUNT(*) AS total_players_from_us_and_japan FROM w WHERE `player country` IN ('united states', 'japan');
+SQL: SELECT COUNT(*) AS total_players_from_us_and_japan FROM w WHERE `player country` IN ('united states', 'japan');
+
+<input>
+CREATE TABLE 1943 vfl season(
+	row_id int,
+	away team text,
+	away team score text)
+/*
+SELECT * FROM w;
+row_id	away team	away team score
+0	south melbourne 50
+1	melbourne	87
+2	fitzroy	67
+*/
+columns: ['row_id', 'away team', 'away team score']
+statement: did fitzroy have the second highest score?
+<output>
+Final Output: 
+The question involves simple lookup finding the second-highest score in the table. 
+ - Since the task is not SQL, the solution is None.
+
+<input>
+CREATE TABLE Fabrice Santoro(
+row_id int,
+name text,
+career\nwin-loss text)
+/*
+All example rows:
+SELECT * FROM w;
+row_id   name  career\nwin-loss
+0 australian open   22–18
+1 indian wells 17–20
+2 total 39-38
+*/
+columns: ['row_id', 'name', 'career\nwin-loss']
+statement: how many games did he win in total?
+<output>
+Final Output:
+This question involves calculating the total number of wins from the 'career\nwin-loss' column.
+  - Step 1: Extract the rows where the 'name' is not 'total' and split the 'career\nwin-loss' field to separate wins and losses.
+    SELECT name, CAST(SUBSTR(`career\nwin-loss`, 1, INSTR(`career\nwin-loss`, '–') - 1) AS INT) AS wins FROM w WHERE name != 'total';
+  - Step 2: Sum the wins from these rows to get the total number of wins.
+    SELECT SUM(CAST(SUBSTR(`career\nwin-loss`, 1, INSTR(`career\nwin-loss`, '–') - 1) AS INT)) AS total_wins FROM w WHERE name != 'total';
+SQL: SELECT SUM(CAST(SUBSTR(`career\nwin-loss`, 1, INSTR(`career\nwin-loss`, '–') - 1) AS INT)) AS total_wins FROM w WHERE name != 'total';
+```
