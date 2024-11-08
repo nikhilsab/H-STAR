@@ -34,7 +34,6 @@ GPT: ``` run_gpt.py ```
 
 Gemini: ``` run_gemini.py ```
 
-Llama3: ``` run_llama3.py ```
 
 ## Evaluation
 
@@ -42,6 +41,13 @@ Evaluate the results for TabFact/ WikiTQ using the notebook
 ```
 evaluate.ipynb
 ```
+
+Evaluate FetaQA using command line instuction 
+```
+python fetaqa_score.py --model_name [MODEL_NAME]
+```
+
+Set ```model_name``` to the desired LLM
 
 ## Citation
 
