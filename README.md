@@ -23,7 +23,7 @@ Benchmark datasets studied in the paper have been provided in the ```datasets/``
 
 ### Add key
 
-Apply and get API keys from [OpenAI API](https://openai.com/api/), save the key in key.txt
+Apply and get API keys from [OpenAI API](https://openai.com/api/), save the key in ```key.txt```
 
 For running the Gemini model generate the API key from [Vertex AI](https://cloud.google.com/vertex-ai) and store it as a ```.json``` file in the directory.
 
