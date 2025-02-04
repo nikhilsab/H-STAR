@@ -252,6 +252,7 @@ def main():
     # Annotate
     generator = Generator(args, keys=keys)
     generate_eids = list(range(0,10))
+    
     generate_eids_group = [[] for _ in range(args.n_processes)]
     for g_eid in generate_eids:
         generate_eids_group[int(g_eid) % args.n_processes].append(g_eid)

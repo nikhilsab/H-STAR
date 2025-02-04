@@ -21,7 +21,7 @@ TOKENIZER_FALSE = "export TOKENIZERS_PARALLELISM=false\n"
 # --dataset_split test \
 # --prompt_file prompts/col_select_text.txt \
 # --n_parallel_prompts 3 \
-# --input_program_file wikitq_test_col_text.json \
+# --input_program_file wikitq_test_col_sql.json \
 # --max_generation_tokens 512 \
 # --temperature 0.4 \
 # --sampling_n 2 \
@@ -30,9 +30,9 @@ TOKENIZER_FALSE = "export TOKENIZERS_PARALLELISM=false\n"
 ### sql row select ###
 # os.system(fr"""{TOKENIZER_FALSE}python ./scripts/model_gpt/row_sql.py --dataset wikitq \
 # --dataset_split test \
-# --prompt_file prompts/row_sql.txt \
+# --prompt_file prompts/row_select_sql.txt \
 # --n_parallel_prompts 3 \
-# --input_program_file wikitq_test_row_sql.json \
+# --input_program_file wikitq_test_col_text.json \
 # --max_generation_tokens 512 \
 # --temperature 0.3 \
 # --sampling_n 2 \
@@ -41,9 +41,9 @@ TOKENIZER_FALSE = "export TOKENIZERS_PARALLELISM=false\n"
 ### test row select ###
 # os.system(fr"""{TOKENIZER_FALSE}python ./scripts/model_gpt/row_text.py --dataset wikitq \
 # --dataset_split test \
-# --prompt_file prompts/sql_reasoning_wtq.txt \
+# --prompt_file prompts/row_select_text.txt \
 # --n_parallel_prompts 3 \
-# --input_program_file wikitq_test_row_text.json \
+# --input_program_file wikitq_test_row_sql.json \
 # --max_generation_tokens 512 \
 # --temperature 0.4 \
 # --sampling_n 2 \
@@ -52,9 +52,9 @@ TOKENIZER_FALSE = "export TOKENIZERS_PARALLELISM=false\n"
 ### sql reason ###
 # os.system(fr"""{TOKENIZER_FALSE}python ./scripts/model_gpt/reason_sql.py --dataset wikitq \
 # --dataset_split test \
-# --prompt_file prompts/text_reason_wtq.txt \
+# --prompt_file prompts/sql_reason_wtq.txt \
 # --n_parallel_prompts 3 \
-# --input_program_file wikitq_test_sql_reason.json \
+# --input_program_file wikitq_test_row_text.json \
 # --max_generation_tokens 512 \
 # --temperature 0.1 \
 # --sampling_n 1 \
@@ -63,9 +63,9 @@ TOKENIZER_FALSE = "export TOKENIZERS_PARALLELISM=false\n"
 ### text final reason ###
 # os.system(fr"""{TOKENIZER_FALSE}python ./scripts/model_gpt/reason_text.py --dataset wikitq \
 # --dataset_split test \
-# --prompt_file prompts/wtq_reason.txt \
+# --prompt_file prompts/text_reason_wtq.txt \
 # --n_parallel_prompts 1 \
-# --input_program_file wikitq_test_subtable_with_augment_final_4o_v2.json \
+# --input_program_file wikitq_test_sql_reason.json \
 # --max_generation_tokens 512 \
 # --temperature 0.0 \
 # --sampling_n 1 \
@@ -75,68 +75,68 @@ TOKENIZER_FALSE = "export TOKENIZERS_PARALLELISM=false\n"
 
 """TABFACT"""
 ### sql column select ###
-# os.system(fr"""{TOKENIZER_FALSE}python ./scripts/model_gpt/col_sql.py --dataset tab_fact \
-# --dataset_split test \
-# --prompt_file prompts/col_select_sql.txt \
-# --n_parallel_prompts 1 \
-# --max_generation_tokens 512 \
-# --temperature 0.2 \
-# --sampling_n 2 \
-# -v""")
+os.system(fr"""{TOKENIZER_FALSE}python ./scripts/model_gpt/col_sql.py --dataset tab_fact \
+--dataset_split test \
+--prompt_file prompts/col_select_sql.txt \
+--n_parallel_prompts 1 \
+--max_generation_tokens 512 \
+--temperature 0.2 \
+--sampling_n 2 \
+-v""")
 
 ### text column select ###
-# os.system(fr"""{TOKENIZER_FALSE}python ./scripts/model_gpt/col_text.py --dataset tab_fact \
-# --dataset_split test \
-# --prompt_file prompts/col_select_text.txt \
-# --n_parallel_prompts 1 \
-# --input_program_file tab_fact_test_col_sql.json \
-# --max_generation_tokens 512 \
-# --temperature 0.4 \
-# --sampling_n 2 \
-# -v""")
+os.system(fr"""{TOKENIZER_FALSE}python ./scripts/model_gpt/col_text.py --dataset tab_fact \
+--dataset_split test \
+--prompt_file prompts/col_select_text.txt \
+--n_parallel_prompts 1 \
+--input_program_file tab_fact_test_col_sql.json \
+--max_generation_tokens 512 \
+--temperature 0.4 \
+--sampling_n 2 \
+-v""")
 
 ### sql row select ###
-# os.system(fr"""{TOKENIZER_FALSE}python ./scripts/model_gpt/row_sql.py --dataset tab_fact \
-# --dataset_split test \
-# --prompt_file prompts/row_sql.txt \
-# --n_parallel_prompts 1 \
-# --input_program_file tab_fact_test_col_text.json \
-# --max_generation_tokens 512 \
-# --temperature 0.4 \
-# --sampling_n 2 \
-# -v""")
+os.system(fr"""{TOKENIZER_FALSE}python ./scripts/model_gpt/row_sql.py --dataset tab_fact \
+--dataset_split test \
+--prompt_file prompts/row_select_sql.txt \
+--n_parallel_prompts 1 \
+--input_program_file tab_fact_test_col_text.json \
+--max_generation_tokens 512 \
+--temperature 0.4 \
+--sampling_n 2 \
+-v""")
 
 ### text row select ###
-# os.system(fr"""{TOKENIZER_FALSE}python ./scripts/model_gpt/row_text.py --dataset tab_fact \
-# --dataset_split test \
-# --prompt_file prompts/row_text.txt \
-# --n_parallel_prompts 1 \
-# --input_program_file tab_fact_test_row_sql.json \
-# --max_generation_tokens 512 \
-# --temperature 0.5 \
-# --sampling_n 2 \
-# -v""")
+os.system(fr"""{TOKENIZER_FALSE}python ./scripts/model_gpt/row_text.py --dataset tab_fact \
+--dataset_split test \
+--prompt_file prompts/row_select_text.txt \
+--n_parallel_prompts 1 \
+--input_program_file tab_fact_test_row_sql.json \
+--max_generation_tokens 512 \
+--temperature 0.5 \
+--sampling_n 2 \
+-v""")
 
 ### sql reason ###
-# os.system(fr"""{TOKENIZER_FALSE}python ./scripts/model_gpt/reason_sql.py --dataset tab_fact \
-# --dataset_split test \
-# --prompt_file prompts/sql_reasoning_tabfact.txt \
-# --n_parallel_prompts 1 \
-# --input_program_file tab_fact_test_row_text.json \
-# --max_generation_tokens 512 \
-# --temperature 0.1 \
-# --sampling_n 1 \
-# -v""")
+os.system(fr"""{TOKENIZER_FALSE}python ./scripts/model_gpt/reason_sql.py --dataset tab_fact \
+--dataset_split test \
+--prompt_file prompts/sql_reason_tabfact.txt \
+--n_parallel_prompts 1 \
+--input_program_file tab_fact_test_row_text.json \
+--max_generation_tokens 512 \
+--temperature 0.1 \
+--sampling_n 1 \
+-v""")
 
 ### final text reason ###
-# os.system(fr"""{TOKENIZER_FALSE}python ./scripts/model_gpt/reason_text.py --dataset tab_fact \
-# --dataset_split test \
-# --prompt_file prompts/text_reason_tabfact.txt \
-# --n_parallel_prompts 1 \
-# --input_program_file tab_fact_test_sql_reason.json \
-# --max_generation_tokens 512 \
-# --temperature 0.0 \
-# --sampling_n 1 \
-# -v""")
+os.system(fr"""{TOKENIZER_FALSE}python ./scripts/model_gpt/reason_text.py --dataset tab_fact \
+--dataset_split test \
+--prompt_file prompts/text_reason_tabfact.txt \
+--n_parallel_prompts 1 \
+--input_program_file tab_fact_test_sql_reason.json \
+--max_generation_tokens 512 \
+--temperature 0.0 \
+--sampling_n 1 \
+-v""")
 
 """***********************************************"""

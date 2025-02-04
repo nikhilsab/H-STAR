@@ -185,7 +185,7 @@ def main():
     # Annotate
     generator = Generator(args, keys=keys)
     # Enter dataset size for inference: range(0, len(dataset))
-    generate_eids = list(range(0,2))
+    generate_eids = list(range(0,10))
     generate_eids_group = [[] for _ in range(args.n_processes)]
     for g_eid in generate_eids:
         generate_eids_group[int(g_eid) % args.n_processes].append(g_eid)

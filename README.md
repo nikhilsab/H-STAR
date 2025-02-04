@@ -16,7 +16,13 @@ Activate the environment by running
 conda create -n hstar python=3.9
 conda activate hstar
 pip install -r requirements.txt
+pip install records==0.5.3
 ```
+
+### Change Path
+
+Create a file named ```<file_name>.pth``` in the ``` /[PATH to Conda]/envs/hstar/lib/python3.9/site-packages/ ``` directory, and paste the Project root path ```[PATH to H-STAR ]```.
+
 ## Datasets
 
 Benchmark datasets studied in the paper have been provided in the ```datasets/``` directory.
