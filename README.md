@@ -1,6 +1,6 @@
 # H-STAR: LLM-driven Hybrid SQL-Text Adaptive Reasoning on Tables
 
-Official Implementation of [H-STAR: LLM-driven Hybrid SQL-Text Adaptive Reasoning on Tables.](https://arxiv.org/abs/2407.05952)
+[NAACL 2025] Official Implementation of [H-STAR: LLM-driven Hybrid SQL-Text Adaptive Reasoning on Tables.](https://arxiv.org/abs/2407.05952)
 
 ## Overview
 
@@ -42,7 +42,7 @@ For Open AI models:
 python run_gpt.py 
 ```
 
-For Gemin/PaLM models: 
+For Gemini/PaLM models: 
 ``` 
 run_gemini.py 
 ```
